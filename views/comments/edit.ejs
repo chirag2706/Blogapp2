@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<div class = "container">
+    <h1>Edit comments</h1>
+    <form action = "/campgrounds/<%= campground_id %>/comments/<%= comment._id %>?_method=put" method = "post" style = "width:30%; margin: 0 auto; margin-top:30px; ">
+        <div class = 'form-group'>
+            <!--<input type = "text" placeholder = "text" name = "text" class = "form-control"  value = "<%= comment.comment %>" required>-->
+            <textarea type = "text" name="text"  class = "form-control" style= "width:100%;" required><%= comment.comment %></textarea>
+        </div>
+        <!--<div class = 'form-group'>-->
+        <!--    <input type = "text" placeholder = "author" name = "author" class = "form-control" required>-->
+        <!--</div>-->
+        <!--<div class = 'form-group'>-->
+        <!--    <input type = "text" placeholder = "description" name = "description" class = "form-control">-->
+        <!--</div>-->
+        <div class = "form-group">
+            <button class="btn btn-lg btn-primary btn-block">Update!</button>
+        </div>
+        
+    </form>
+    <div style = "width :30%; margin:0 auto;">
+        <a href = "https://app-chirag2706.c9users.io/campgrounds">Go back to main page</a>
+    </div>
+    
+</div>
+
+
+<% include ../partials/footer %>

@@ -1,0 +1,96 @@
+<% include ../partials/header %>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-3">
+            <p class = "lead">YelpCamp</p>
+            <div class = "list-group">
+                <li class = "list-group-item active" >Info 1</li>
+                <li class = "list-group-item">Info 2</li>
+                <li class = "list-group-item">Info 3</li>
+            </div>
+            <div id = "map" style = "width:100%;
+    height:420px;"></div>
+        </div>
+        <div class = "col-md-9">
+            <div class = "thumbnail" style = "padding:0;" >
+                <img src = "<%= campgroundfound.image %>" style = "width:100%;">
+                <div class = "caption">
+                    <h4 class = "pull-right"><%= campgroundfound.price %></h4>
+                    <h4><a><%= campgroundfound.name %></a></h4>
+                    <div><%= campgroundfound.description %></div>
+                    <div>Submitted by :<strong><em><%= campgroundfound.author.username %></em></strong></div>
+                    <% if (User && campgroundfound.author.id.equals(User._id)) { %>
+                        <a class = "btn btn-warning btn-xs" href = "/campgrounds/<%= campgroundfound._id %>/edit">Edit</a>
+                        <form style = "display:inline-block;" action = "/campgrounds/<%= campgroundfound._id %>?_method=delete" method = "post">
+                            <button class = "btn btn-danger btn-xs">Delete</button>
+                        </form>
+                    <% } %>
+                     
+                </div>
+            </div>
+            <div class = "well">
+                <div class = "text-right">
+                    <form method = "get" action = "/campgrounds/<%= campgroundfound._id %>/comments/new">
+                        <button class = "btn btn-primary">Add more comments</button>
+                    </form>
+                </div>
+                <hr>
+                
+                <p>
+                        
+                    <% for(var i=0;i<campgroundfound.comments.length;i++){ %>
+                        <div class = 'row'>
+                            <div class = "col-md-12">
+                                <strong><%= campgroundfound.comments[i].author.username %></strong> - <%= campgroundfound.comments[i].comment %>
+                                <span class = "pull-right">10 days ago</span>
+                                <% if (User && campgroundfound.comments[i].author.id.equals(User._id)) { %>
+                                <a class = "btn btn-xs btn-warning" href = "/campgrounds/<%= campgroundfound._id %>/comments/<%= campgroundfound.comments[i]._id %>/edit">Edit</a>
+                                <form style = "display:inline-block;"  method = "post" action = "/campgrounds/<%= campgroundfound._id %>/comments/<%= campgroundfound.comments[i]._id %>?_method=delete">
+                                    <button class = "btn btn-xs btn-danger" >Delete</button>
+                                </form>
+                                <% } %>
+                                
+                            </div>
+                        </div>
+                    <% } %>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  function initMap() {
+    var lat =  <%= campgroundfound.lat %> ;
+    var lng =  <%= campgroundfound.lng %> ;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= campgroundfound.name %><br/>
+      <%= campgroundfound.location %></strong>
+      <p><%= campgroundfound.description %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+
+
+
+
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2ZK5zbYREG3-ukUD1j4hd1LzMN6Dhtz4&callback=initMap"
+  type="text/javascript"></script>
+<% include ../partials/footer %>

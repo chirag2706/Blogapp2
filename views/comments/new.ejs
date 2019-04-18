@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+<div class = "container">
+    <h1>Add new comments</h1>
+    <form action = "/campgrounds/<%= campground._id %>/comments" method = "post" style = "width:30%; margin: 0 auto; margin-top:30px; ">
+        <div class = 'form-group'>
+            <textarea type = "text" name="text" style= "width:100%; height:100px;" required></textarea>
+        </div>
+        <div class = "form-group">
+            <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+        </div>
+        
+    </form>
+    <div style = "width :30%; margin:0 auto;">
+        <a href = "https://app-chirag2706.c9users.io/campgrounds">Go back to main page</a>
+    </div>
+    
+</div>
+
+
+<% include ../partials/footer %>

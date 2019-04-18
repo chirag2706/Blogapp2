@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+<header class = "jumbotron">
+    <div class = "container">
+        <h1>Campground information</h1>
+        <div><a class = "btn btn-danger btn-group btn-group-lg" href = "https://app-chirag2706.c9users.io/campgrounds/new">Enter new campgrounds</a></div>
+    </div>
+</header>
+<div class = "container">
+    
+    <div class = "row" style = "display:flex; flex-wrap:wrap;">
+            <%for(var i=0;i<camp.length;i++){%>
+                    <div class = "col-md-4 col-sm-6">
+                        <div class = "thumbnail">
+                           
+                            <img src =  "<%= camp[i].image %>" alt = "Something gone wrong" style = "margin-left:0px; margin-right:0px;">
+                
+                                <div class = "caption" style = "text-align:center;">
+                                    <h3> <%=camp[i].name%> </h3>
+                             </div>
+                             <p style = "width:25%; margin:0 auto;">
+                                 <a href = "/campgrounds/<%= camp[i]._id %>" class = "btn btn-info" >More info</a>
+                             </p>
+                            
+                        </div>
+                        
+                    </div>
+            <% } %>
+    </div>
+    
+    
+    <a href = "https://app-chirag2706.c9users.io/">Go to landing page</a>
+</div>
+
+<% include ../partials/footer %>
